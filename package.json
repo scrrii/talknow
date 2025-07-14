@@ -1,0 +1,31 @@
+{
+  "name": "talknow",
+  "version": "1.0.0",
+  "description": "تطبيق المحادثات العشوائية المجهولة",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 8000 -o",
+    "dev": "http-server -p 8000 -o",
+    "build": "echo 'No build process needed for static files'"
+  },
+  "keywords": [
+    "chat",
+    "anonymous",
+    "random",
+    "firebase",
+    "realtime"
+  ],
+  "author": "TalkNow Team",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/talknow.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/talknow/issues"
+  },
+  "homepage": "https://github.com/your-username/talknow#readme"
+}

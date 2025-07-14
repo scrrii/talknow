@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalkNow - تحدث مع أشخاص جدد</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- صفحة التسجيل -->
+        <div id="registration-page" class="page active">
+            <div class="form-container">
+                <h1>مرحباً بك في TalkNow</h1>
+                <p>تحدث مع أشخاص جدد بطريقة آمنة ومجهولة</p>
+                
+                <form id="registration-form">
+                    <div class="input-group">
+                        <label for="name">الاسم *</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="email">البريد الإلكتروني *</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="gender">الجنس *</label>
+                        <select id="gender" required>
+                            <option value="">اختر الجنس</option>
+                            <option value="male">ذكر</option>
+                            <option value="female">أنثى</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="age">العمر (اختياري)</label>
+                        <input type="number" id="age" min="13" max="100">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="preferred-gender">الجنس المفضل للتحدث معه</label>
+                        <select id="preferred-gender">
+                            <option value="any">لا يهم</option>
+                            <option value="male">ذكر</option>
+                            <option value="female">أنثى</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">ابدأ التحدث</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- صفحة الانتظار -->
+        <div id="waiting-page" class="page">
+            <div class="waiting-container">
+                <div class="loading-spinner"></div>
+                <h2>جاري البحث عن شخص للتحدث معه...</h2>
+                <p>يرجى الانتظار قليلاً</p>
+                <button id="cancel-waiting" class="btn-secondary">إلغاء</button>
+            </div>
+        </div>
+        
+        <!-- صفحة المحادثة -->
+        <div id="chat-page" class="page">
+            <div class="chat-header">
+                <h3>أنت تتحدث الآن مع شخص مجهول</h3>
+                <div class="chat-controls">
+                    <button id="reveal-identity" class="btn-small">طلب كشف الهوية</button>
+                    <button id="add-favorite" class="btn-small">إضافة للمفضلة</button>
+                    <button id="mute-chat" class="btn-small">كتم المحادثة</button>
+                    <button id="report-user" class="btn-small btn-danger">إبلاغ عن إساءة</button>
+                    <button id="end-chat" class="btn-small btn-danger">إنهاء المحادثة</button>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="chat-messages"></div>
+            
+            <div class="chat-input-container">
+                <input type="text" id="message-input" placeholder="اكتب رسالتك هنا..." maxlength="500">
+                <button id="send-message" class="btn-primary">إرسال</button>
+            </div>
+            
+            <div class="chat-timer">
+                <span>الوقت المتبقي: <span id="timer">60:00</span></span>
+            </div>
+        </div>
+        
+        <!-- صفحة التقييم -->
+        <div id="rating-page" class="page">
+            <div class="rating-container">
+                <h2>كيف كانت تجربتك؟</h2>
+                <div class="stars-rating">
+                    <span class="star" data-rating="1">⭐</span>
+                    <span class="star" data-rating="2">⭐</span>
+                    <span class="star" data-rating="3">⭐</span>
+                    <span class="star" data-rating="4">⭐</span>
+                    <span class="star" data-rating="5">⭐</span>
+                </div>
+                <p>هل ترغب في التحدث مع هذا الشخص مرة أخرى؟</p>
+                <div class="rating-buttons">
+                    <button id="want-again-yes" class="btn-primary">نعم</button>
+                    <button id="want-again-no" class="btn-secondary">لا</button>
+                </div>
+                <button id="start-new-chat" class="btn-primary">بدء محادثة جديدة</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- القائمة الجانبية -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>TalkNow</h3>
+            <button id="close-sidebar">×</button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#" id="home-link">الصفحة الرئيسية</a></li>
+            <li><a href="#" id="previous-chats-link">محادثاتي السابقة</a></li>
+            <li><a href="#" id="favorites-link">قائمة المفضلين</a></li>
+            <li><a href="#" id="settings-link">الإعدادات</a></li>
+            <li><a href="#" id="logout-link">تسجيل الخروج</a></li>
+        </ul>
+    </div>
+    
+    <button id="menu-toggle" class="menu-toggle">☰</button>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
